@@ -12,7 +12,7 @@ var myHasher = function(password, tempUserData, insertTempUser, callback) {
 };
 
 nev.configure({
-    verificationURL: ENV.host+'/signup/${URL}',
+    verificationURL: ENV.host+':'+ENV.port+'/signup/${URL}',
     persistentUserModel: User,
     tempUserCollection: 'tempusers',
     emailFieldName: 'username',
@@ -43,45 +43,54 @@ nev.generateTempUserModel(User, function (err, tempUserModel) {
     console.log(err);
 });
 
-function emailVerify(user){
+function emailVerify(user,cb){
 
 
     // var email=user.username,
     //     password=user.password;
-    console.log(user.username);
+    if(typeof user.username =="undefined")
+    {
+        cb("invalid username");
+        return;
+    }
+    console.log(user.username+" try to sign up");
 
     nev.createTempUser(user, function (err, existingPersistentUser, newTempUser) {
         if (err){
-            console.log(err);
-            throw err;
+            //console.log(err);
+            cb(err);
         }
         if (existingPersistentUser){
-            console.log("email exist!");
-            return Error("email exist!")
+            //console.log("email exist!");
+            cb('email exist!');
         }
         if (newTempUser){
             var URL =newTempUser[nev.options.URLFieldName];
             nev.sendVerificationEmail(user.username,URL,function (err, info) {
                 if (err){
-                    console.log(err);
-                    throw  err;
+                    // console.log(err);
+                    // throw  err;
+                    cb(err)
                 }
                 //success send the email
-                console.log("mail send!");
-                return true;
+                // console.log("mail send!");
+                // return true;
+                cb(null);
             })
         } else {
-            console.log(err);
-            throw  err;
+            // console.log(err);
+            // throw  err;
+            cb('unknown error, try resend email');
         }
     });
 }
 
-function emailConfirm(url){
+function emailConfirm(url, cb){
     nev.confirmTempUser(url, function(err, user) {
         if (err){
-            console.log(err);
-            throw err;
+            // console.log(err);
+            // throw err;
+            cb(err);
         }
 
         // user was found!
@@ -89,36 +98,42 @@ function emailConfirm(url){
             // optional
             nev.sendConfirmationEmail(user['username'], function(err, info) {
                 if (err){
-                    console.log(err);
-                    throw  err;
+                    // console.log(err);
+                    // throw  err;
+                    cb(err);
                 }
                 //success send the email
-                console.log("mail send!");
-                return true;
+                // console.log("mail send!");
+                // return true;
+                cb(null);
             });
         }
 
         // user's data probably expired...
         else{
-            console.log('may need resend');
+            // console.log('may need resend');
+            cb('may need resend!')
         }
 
     });
 }
 
-function resendEmail(email){
+function resendEmail(email, cb){
     nev.resendVerificationEmail(email,function (err, userFound) {
         if(err){
-            console.log(err);
-            throw err;
+            // console.log(err);
+            // throw err;
+            cb(err);
         }
         if (userFound){
-            console.log("email has been sent");
-            return true;
+            // console.log("email has been sent");
+            // return true;
+            cb(null);
         }
         else{
-            console.log("cannot resend, user not found");
-            throw Error("Cannot resend");
+            // console.log("cannot resend, user not found");
+            // throw Error("Cannot resend");
+            cb('Cannot resend!');
         }
 
     })

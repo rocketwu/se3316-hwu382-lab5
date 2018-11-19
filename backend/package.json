@@ -12,7 +12,10 @@
     "bcrypt": "^3.0.2",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "express-jwt": "^5.3.1",
+    "jsonwebtoken": "^8.4.0",
     "mongoose": "^5.3.12",
+    "nodemailer": "^4.6.8",
     "randomstring": "^1.1.5"
   }
 }
