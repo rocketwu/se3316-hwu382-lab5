@@ -22,7 +22,7 @@ function login (user, cb){
                         cb("Disabled", null);
                         return;
                     }
-                    jwt.sign({foo: 'bar'}, ENV.secretKey, {expiresIn: ENV.tokenExpire}, function (err, token) {
+                    jwt.sign({UserID: theUser._id}, ENV.secretKey, {expiresIn: ENV.tokenExpire}, function (err, token) {
                         if (err){
                             cb(err,null);
                         }
@@ -40,4 +40,26 @@ function login (user, cb){
     })
 }
 
+function verifyLoginToken(req, res, next){
+    // Get auth header value
+    const bearerHeader = req.headers['authorization'];
+    // Check if bearer is undefined
+    if(typeof bearerHeader !== 'undefined') {
+        // Split at the space
+        const bearer = bearerHeader.split(' ');
+        // Get token from array
+        const bearerToken = bearer[1];
+        // Set the token
+        req.token = bearerToken;
+        // Next middleware
+        next();
+    }else{
+        res.json({
+            status:'0',
+            message:'Missing token'
+        })
+    }
+}
+
 exports.login=login;
+exports.verifyLoginToken=verifyLoginToken;
