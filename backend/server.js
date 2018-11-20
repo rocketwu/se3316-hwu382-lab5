@@ -12,6 +12,7 @@ var router = express.Router();
 var signupRouter = require('./routes/signup'),
     loginRouter = require('./routes/login'),
     itemRouter = require('./routes/item'),
+    commentRouter = require('./routes/comment'),
     testRouter = require('./routes/test');
 
 //settings
@@ -24,15 +25,13 @@ router.get('/',(req,res)=>{
     res.json({message:"Backend server at your service!"});
 });
 
-//set up expressJwt
 
-
-
-
+//use router
 app.use('/',router);
 app.use('/signup',signupRouter);
 app.use('/login',loginRouter);
 app.use('/item',itemRouter);
+app.use('/comment',commentRouter);
 app.use('/test',testRouter);
 
 

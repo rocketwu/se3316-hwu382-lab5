@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
-var Item = require('../models/itemModel');
 var loginModule = require('../backend_modules/login_module');
 var ENV = require('../backend_modules/environment');
 var jwt = require('jsonwebtoken');
-var User = require('../models/userModel');
 
+var User = require('../models/userModel');
+var Item = require('../models/itemModel');
+var Comment = require('../models/commentModel');
 
 var parsetoItem = function (request){
     var item = new Item(request.body.item);
@@ -78,7 +79,7 @@ router.route('/')
                 res.json(items);
             }
         })
-    })
+    });
 
 router.route('/:item_id')
     .put(loginModule.verifyLoginToken, function (req, res) {
@@ -154,6 +155,9 @@ router.route('/:item_id')
                                 }
                                 if (item){
                                     res.json({status:'1', message: 'Item deleted'});
+                                    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Remember to delete other document related to the item(comment, shopping cart and wished list)
+                                    Comment.deleteMany({itemID: req.params.item_id}, function (err) {});   //delete related comment
+
                                 }else{
                                     res.json({status:'0', message: 'No such item'});
                                 }
@@ -178,7 +182,7 @@ router.route('/:item_id')
                 res.json(item);
             }
         })
-    })
+    });
 
 
 
