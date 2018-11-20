@@ -4,4 +4,4 @@ exports.port=9000;
 exports.saltRound=12;
 exports.localhost='http://localhost';
 exports.secretKey='jianbingguozi';
-exports.tokenExpire='30s';
+exports.tokenExpire='30min';

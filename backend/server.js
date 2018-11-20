@@ -11,6 +11,7 @@ var router = express.Router();
 //register routers
 var signupRouter = require('./routes/signup'),
     loginRouter = require('./routes/login'),
+    itemRouter = require('./routes/item'),
     testRouter = require('./routes/test');
 
 //settings
@@ -31,6 +32,7 @@ router.get('/',(req,res)=>{
 app.use('/',router);
 app.use('/signup',signupRouter);
 app.use('/login',loginRouter);
+app.use('/item',itemRouter);
 app.use('/test',testRouter);
 
 
