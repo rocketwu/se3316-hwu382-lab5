@@ -40,7 +40,7 @@ router.route('/')
                 //use the user id in payload to check the user is a manager or not
                 let userID = payload.UserID;
                 User.findById(userID, function (err, user) {
-                    if (err) {
+                    if (err || user.isDisabled) {
                         res.json({status: '0', message: 'Login status expired'});
                         return;
                     }
@@ -94,7 +94,7 @@ router.route('/:item_id')
                 //use the user id in payload to check the user is a manager or not
                 let userID = payload.UserID;
                 User.findById(userID, function (err, user) {
-                    if (err) {
+                    if (err || user.isDisabled) {
                         res.json({status: '0', message: 'Login status expired'});
                         return;
                     }
@@ -142,7 +142,7 @@ router.route('/:item_id')
                 //use the user id in payload to check the user is a manager or not
                 let userID = payload.UserID;
                 User.findById(userID, function (err, user) {
-                    if (err) {
+                    if (err || user.isDisabled) {
                         res.json({status: '0', message: 'Login status expired'});
                         return;
                     }
