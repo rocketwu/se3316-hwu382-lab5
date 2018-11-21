@@ -36,7 +36,8 @@ router.route('/')
                 res.json({
                     status:'1',
                     message:'Login Success',
-                    token: token
+                    token: token,
+                    username: user.username
                 });
                 console.log(user.username+" logged in.");
             }

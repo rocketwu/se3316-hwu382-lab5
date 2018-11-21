@@ -13,6 +13,7 @@ var signupRouter = require('./routes/signup'),
     loginRouter = require('./routes/login'),
     itemRouter = require('./routes/item'),
     commentRouter = require('./routes/comment'),
+    cartRouter = require('./routes/cart'),
     testRouter = require('./routes/test');
 
 //settings
@@ -32,6 +33,7 @@ app.use('/signup',signupRouter);
 app.use('/login',loginRouter);
 app.use('/item',itemRouter);
 app.use('/comment',commentRouter);
+app.use('/cart', cartRouter);
 app.use('/test',testRouter);
 
 

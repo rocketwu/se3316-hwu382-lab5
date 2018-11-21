@@ -61,5 +61,42 @@ function verifyLoginToken(req, res, next){
     }
 }
 
+function verifyAuthority(req, res, isManager, passVerification){
+    //use to check the authority of a user. isManager is used to check whether a manager is required
+    //if the user pass the check, passVerification will be execute.
+    //passVerification has a parameter which standard for the user find in database
+    jwt.verify(req.token, ENV.secretKey, (err, payload) => {
+        if (err) {
+            res.json({status: '0', message: 'Login status expired'});
+        } else {
+            //use the user id in payload to check the user is valid or not
+            let userID = payload.UserID;
+            User.findById(userID, function (err, user) {
+                if (err || user.isDisabled) {
+                    res.json({status: '0', message: 'Login status expired'});
+                    return;
+                }
+                if (user) {
+                    if (isManager){
+                        //check is manager
+                        if(user.isManager){
+                            //user is a manager
+                            passVerification(user);
+                        }else {
+                            res.json({status: '0', message: 'permission deny, need manager account'});
+                        }
+                    }else{
+                        //normal user can do
+                        passVerification(user);
+                    }
+                } else {
+                    res.json({status: '0', message: 'Login status expired'});
+                }
+            })
+        }
+    });
+}
+
 exports.login=login;
 exports.verifyLoginToken=verifyLoginToken;
+exports.verifyAuthority=verifyAuthority;

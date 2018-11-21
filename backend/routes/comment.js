@@ -1,11 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var Item = require('../models/itemModel');
 var loginModule = require('../backend_modules/login_module');
-var ENV = require('../backend_modules/environment');
-var jwt = require('jsonwebtoken');
-var User = require('../models/userModel');
+
 var Comment = require('../models/commentModel');
+var Item = require('../models/itemModel');
 
 var parsetoComment = function (request){
     var comment = new Comment(request.body.comment);
@@ -36,52 +34,34 @@ router.use('/:item_id', function (req, res, next) {
 
 });
 
-router.use('/hide/:comment_id', function (req, res, next) {
-    next();
-})
-
 router.route('/:item_id')
     .post(loginModule.verifyLoginToken, function (req, res) {
         //request add item comment
         //use: POST http://myurl/comment/<item_id>
         //post body: {content, rank, author}
         //only login user can do
-        jwt.verify(req.token, ENV.secretKey, (err, payload) => {
-            if (err) {
-                res.json({status: '0', message: 'Login status expired'});
-            } else {
-                //use the user id in payload to check the user is valid or not
-                let userID = payload.UserID;
-                User.findById(userID, function (err, user) {
-                    if (err || user.isDisabled) {
-                        res.json({status: '0', message: 'Login status expired'});
-                        return;
+        loginModule.verifyAuthority(req, res, false, function (user) {
+            let comment = parsetoComment(req);
+            if (comment.rank && comment.author){
+                comment.authorID = user._id;
+                comment.itemID = req.params.item_id;
+                comment.isVisible = true;
+                comment.save(function (err) {
+                    if (err){
+                        res.json(err);
+                    } else{
+                        res.json({status: '1', message: 'success add comment'});
                     }
-                    if (user) {
-                        let comment = parsetoComment(req);
-                        if (comment.rank && comment.author){
-                            comment.authorID = userID;
-                            comment.itemID = req.params.item_id;
-                            comment.isVisible = true;
-                            comment.save(function (err) {
-                                if (err){
-                                    res.json(err);
-                                } else{
-                                    res.json({status: '1', message: 'success add comment'});
-                                }
-                            })
-                        }else{
-                            res.json({status: '0', message: 'invalid comment, please add rank and author'});
-                        }
-                    } else {
-                        res.json({status: '0', message: 'Login status expired'});
-                    }
-                })
+                });
+            }else{
+                res.json({status: '0', message: 'invalid comment, please add rank and author'});
             }
-        });
+        })
     })
 
     .get(function (req, res) {
+        //request to get comments of an item
+        //use: GET http://myurl/comment/<item_id>
         Comment.find({itemID: req.params.item_id}, function (err, comments) {
             //request to get all comments related to item
             //use: GET http://myurl/comment/<item_id>
@@ -98,43 +78,22 @@ router.route('/hide/:comment_id')
         //use: PUT http://myurl/comment/hide/<comment_id>
         //put body: {isVisible}
         //only store manager can do
-        jwt.verify(req.token, ENV.secretKey, (err, payload) => {
-            if (err) {
-                res.json({status: '0', message: 'Login status expired'});
-            } else {
-                //use the user id in payload to check the user is a manager or not
-                let userID = payload.UserID;
-                User.findById(userID, function (err, user) {
-                    if (err || user.isDisabled) {
-                        res.json({status: '0', message: 'Login status expired'});
-                        return;
-                    }
-                    if (user) {
-                        if (user.isManager) {
-                            //user is the manager, can modify item
-                            Comment.findById(req.params.comment_id, function (err, originComment) {
-                                if(err){
-                                    res.json({status: '0',message:err});
-                                }else{
-                                    originComment.isVisible = req.body.isVisible;
-                                    originComment.save(function (err) {
-                                        if (err) {
-                                            res.json({status: '0', message: err});
-                                        } else {
-                                            res.json({status: '1', message: 'comment status updated!'});
-                                        }
-                                    })
-                                }
-                            })
+        loginModule.verifyAuthority(req ,res, true, function () {
+            Comment.findById(req.params.comment_id, function (err, originComment) {
+                if(err){
+                    res.json({status: '0',message:err});
+                }else{
+                    originComment.isVisible = req.body.isVisible;
+                    originComment.save(function (err) {
+                        if (err) {
+                            res.json({status: '0', message: err});
                         } else {
-                            res.json({status: '0', message: 'permission deny, need manager account'});
+                            res.json({status: '1', message: 'comment status updated!'});
                         }
-                    } else {
-                        res.json({status: '0', message: 'Login status expired'});
-                    }
-                })
-            }
-        });
+                    })
+                }
+            })
+        })
     });
 
 module.exports=router;
