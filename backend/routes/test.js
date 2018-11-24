@@ -14,6 +14,18 @@ router.route('/')
             console.log('user '+user._id);
             res.json(user);
         })
+    });
+
+router.route('/:id1')
+    .get(function (req, res) {
+        console.log(req.params.id1);
+        res.sendStatus(200);
+    })
+
+router.route('/:id1/:id2')
+    .get(function (req, res) {
+        console.log(req.params.id1 + ' ' + req.params.id2);
+        res.sendStatus(200);
     })
 
 

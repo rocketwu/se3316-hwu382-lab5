@@ -14,6 +14,7 @@ var signupRouter = require('./routes/signup'),
     itemRouter = require('./routes/item'),
     commentRouter = require('./routes/comment'),
     cartRouter = require('./routes/cart'),
+    listRouter = require('./routes/list'),
     testRouter = require('./routes/test');
 
 //settings
@@ -34,6 +35,7 @@ app.use('/login',loginRouter);
 app.use('/item',itemRouter);
 app.use('/comment',commentRouter);
 app.use('/cart', cartRouter);
+app.use('/list', listRouter);
 app.use('/test',testRouter);
 
 

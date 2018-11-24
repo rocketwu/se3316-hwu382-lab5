@@ -5,6 +5,7 @@ var loginModule = require('../backend_modules/login_module');
 var Item = require('../models/itemModel');
 var Comment = require('../models/commentModel');
 var Cart = require('../models/cartModel');
+var ListItem = require('../models/listItemModel');
 
 var parsetoItem = function (request){
     var item = new Item(request.body.item);
@@ -101,11 +102,9 @@ router.route('/:item_id')
                 }
                 if (item){
                     res.json({status:'1', message: 'Item deleted'});
-                    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Remember to delete other document related to the item(comment, shopping cart and wished list)
                     Comment.deleteMany({itemID: req.params.item_id}, function (err) {});   //delete related comment
                     Cart.deleteMany({itemID: req.params.item_id}, function (err) {});   //delete related item in cart
-
-
+                    ListItem.deleteMany({itemID: req.params.item_id}, function (err) {});   //delete relate item in wished list
                 }else{
                     res.json({status:'0', message: 'No such item'});
                 }

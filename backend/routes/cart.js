@@ -183,11 +183,34 @@ router.route('/buy')
         //use: DELETE http://myurl/cart/buy
         //login user only
         loginModule.verifyAuthority(req, res, false, function (user) {
-            Cart.deleteMany({userID: user._id}, function (err) {
+            Cart.find({userID: user._id}, function (err, items) {
                 if(err){
                     res.json({status: '0', message: err});
                 }else{
-                    res.json({status: '1', message:'bought!'});
+                    for(let i=items.length-1;i>=0;i--){
+                        console.log(items[i].itemID);
+                        items[i].remove(function (err, itemRemoved) {
+                            if (err){
+                                res.json({status: '0', message: err});
+                            }else{
+                                Item.findById(items[i].itemID, function (err, item) {
+                                    if(err){
+                                        console.log(err);
+                                    }else if (item){
+                                        item.sold = item.sold + itemRemoved.quantity;
+                                        item.save(function (err) {
+                                            if(err){
+                                                console.log(err);
+                                            }else{
+                                                console.log('update item sold quantity: '+item.name);
+                                            }
+                                        })
+                                    }
+                                });
+                            }
+                        });
+                    }
+                    res.json({status: '1', message: 'Success buy items in cart'});
                 }
             });
         });
