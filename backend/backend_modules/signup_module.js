@@ -59,10 +59,12 @@ function emailVerify(user,cb){
         if (err){
             //console.log(err);
             cb(err);
+            return;
         }
         if (existingPersistentUser){
             //console.log("email exist!");
             cb('email exist!');
+            return;
         }
         if (newTempUser){
             var URL =newTempUser[nev.options.URLFieldName];
@@ -71,6 +73,7 @@ function emailVerify(user,cb){
                     // console.log(err);
                     // throw  err;
                     cb(err)
+                    return;
                 }
                 //success send the email
                 // console.log("mail send!");
@@ -80,7 +83,7 @@ function emailVerify(user,cb){
         } else {
             // console.log(err);
             // throw  err;
-            cb('unknown error, try resend email');
+            cb('Email verification in process, Want to resend verification Email?');
         }
     });
 }

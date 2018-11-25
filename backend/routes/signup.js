@@ -7,7 +7,7 @@ var ENV = require('../backend_modules/environment');
 var jwt = require('jsonwebtoken');
 
 var parsetoUser = function (request){
-    var user = new User(request.body.user);
+    var user = new User(request.body);
     return (!user.username) ? parsetoUser2(request) : user;
 }
 
@@ -28,7 +28,7 @@ router.use(function (req, res, next) {
 router.route('/')
     .post(function (req, res) {
         //request sign up
-        //use: http://myurl/post/
+        //use: http://myurl/signup/
         //post body: {}
         let user = parsetoUser(req);
         user.isManager = false;
@@ -43,10 +43,7 @@ router.route('/')
                 console.log('Mail sent');
             }
         });
-    })
-    .get(function (req,res) {
-        res.json({status:'2', message:'nothing here'});
-    })
+    });
 
 router.route('/:verify_url')
     .get(function (req, res) {

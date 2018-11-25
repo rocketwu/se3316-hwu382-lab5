@@ -4,7 +4,7 @@ var User = require('../models/userModel');
 var loginModule = require('../backend_modules/login_module');
 
 var parsetoUser = function (request){
-    var user = new User(request.body.user);
+    var user = new User(request.body);
     return (!user.username) ? parsetoUser2(request) : user;
 }
 
@@ -28,7 +28,7 @@ router.route('/')
         //use: http://myurl/login/
         //post body: {username, passowrd}
         let user = parsetoUser(req);
-        loginModule.login(user, (err, token)=>{
+        loginModule.login(user, (err, token, verifiedUser)=>{
             if (err){
                 res.json({status:'0', message:err});
                 console.log(err);
@@ -37,7 +37,9 @@ router.route('/')
                     status:'1',
                     message:'Login Success',
                     token: token,
-                    username: user.username
+                    username: verifiedUser.username,
+                    userID: verifiedUser._id,
+                    isManager: verifiedUser.isManager,
                 });
                 console.log(user.username+" logged in.");
             }

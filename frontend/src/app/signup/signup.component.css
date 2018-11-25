@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+}
+
+.container > * {
+  width: 100%;
+}
+
+.container form {
+  margin-bottom: 20px;
+}
+
+.container form > * {
+  margin: 5px ;
+}
+
+.mat-form-field {
+  width: 90%;
+}
+
+.mat-card{
+  width: 400px;
+  height: 200px;
+  position:fixed;
+  left:0;
+  right:0;
+  top:0;
+  bottom:0;
+  margin:auto;
+}
+.mat-raised-button{
+  display: inline-flex;
+  justify-content:center;
+  margin-right: 20px;
+  width: 80px;
+}

@@ -14,28 +14,30 @@ function login (user, cb){
             //user is found, check password
             bcrypt.compare(user.password, theUser.password, function (err, res) {
                 if (err){
-                    cb(err, null);
+                    cb(err, null, null);
                 }
                 if (res){
                     //the password is right
                     if (theUser.isDisabled){
-                        cb("Disabled", null);
+                        cb("Disabled", null, null);
                         return;
                     }
                     jwt.sign({UserID: theUser._id}, ENV.secretKey, {expiresIn: ENV.tokenExpire}, function (err, token) {
                         if (err){
-                            cb(err,null);
+                            cb(err,null ,null);
                         }
                         if (token){
-                            cb(null, token);
+                            cb(null, token, theUser);
                         }
                     });
 
                 } else{
                     //the password is wrong
-                    cb("wrong password", null);
+                    cb("wrong password", null, null);
                 }
             });
+        } else {
+            cb("No such Username", null, null);
         }
     })
 }

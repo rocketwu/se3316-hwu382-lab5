@@ -1,0 +1,9 @@
+.spacer {
+  flex: 1 1 auto;
+}
+.mat-raised-button{
+  display: inline-flex;
+  justify-content:center;
+  margin-right: 20px;
+  width: 80px;
+}

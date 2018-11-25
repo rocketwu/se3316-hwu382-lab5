@@ -1,0 +1,25 @@
+<mat-card class="sign-up">
+  <mat-card-header>
+    <mat-card-title>
+      Sign Up
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+      <mat-form-field [floatLabel]="auto">
+        <input matInput type="email" formControlName="username" placeholder="E-mail">
+        <mat-error *ngIf="username.invalid">Please input a valid email address!</mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field [floatLabel]="auto">
+        <input matInput type="password" formControlName="password" placeholder="Password">
+        <mat-error *ngIf="password.invalid">Please input a valid email address!</mat-error>
+      </mat-form-field>
+      <br>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!signUpForm.valid">Submit</button>
+      <button mat-raised-button type="button" (click)="cancel()">Cancel</button>
+      <button *ngIf="needResend" mat-raised-button type="button" (click)="resend()">Resend</button>
+    </form>
+
+  </mat-card-content>
+</mat-card>
