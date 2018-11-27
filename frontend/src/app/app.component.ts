@@ -91,6 +91,10 @@ export class AppComponent {
       data: {mode: 'show'}
     });
   }
+
+  clickAddItem() {
+    
+  }
 }
 
 @Component({

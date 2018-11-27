@@ -15,7 +15,7 @@ import {
   MatDialogModule,
   MatDividerModule, MatExpansionModule,
   MatInputModule,
-  MatListModule, MatSelectModule, MatSliderModule, MatTableModule,
+  MatListModule, MatSelectModule, MatSliderModule, MatSlideToggleModule, MatTableModule,
   MatToolbarModule
 } from '@angular/material';
 import { LoginComponent } from './login/login.component';
@@ -74,6 +74,7 @@ const appRoutes: Routes = [
     MatExpansionModule,
     MatTableModule,
     MatSelectModule,
+    MatSlideToggleModule,
     ToastrModule.forRoot()
   ],
   providers: [],

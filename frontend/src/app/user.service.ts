@@ -33,7 +33,26 @@ export class UserService {User;
     );
   }
 
+  putManager(id: string, user: User): Observable<any> {
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', 'bearer ' + localStorage.getItem('token'));
+    return this.http.put<any>(
+      Env.serverURL + 'user/manager/' + id,
+      {isManager: user.isManager},
+      {headers: headers}
+    );
+  }
 
-
+  putDisable(id: string, user: User): Observable<any> {
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', 'bearer ' + localStorage.getItem('token'));
+    return this.http.put<any>(
+      Env.serverURL + 'user/disable/' + id,
+      {isDisabled: user.isDisabled},
+      {headers: headers}
+    );
+  }
 
 }

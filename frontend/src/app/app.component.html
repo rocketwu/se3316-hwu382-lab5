@@ -18,6 +18,7 @@
     <span>Manage Mode!</span>
     <span class="spacer"></span>
     <button mat-raised-button style="background-color: #feffe0" (click)="clickUser()" *ngIf="isLoggedIn && isManager">User...</button>
+    <button mat-raised-button style="background-color: #feffe0" (click)="clickAddItem()" *ngIf="isLoggedIn && isManager">Add Item</button>
     <button mat-raised-button style="background-color: #feffe0" (click)="clickManage()" *ngIf="isLoggedIn && isManager">User Mode</button>
   </mat-toolbar-row>
 </mat-toolbar>
