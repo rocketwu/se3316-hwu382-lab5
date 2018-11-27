@@ -25,8 +25,8 @@ export class UserCartComponent implements OnInit {
 
   getCartItems() {
     this.cartService.getCart().subscribe(data => {
-      if (data.status == '0') {
-        this.notify.warning(data.message, 'Fail',
+      if (!data[0]._id) {
+        this.notify.warning('', 'Fail',
           {timeOut: 1000 * 2,
             positionClass: 'toast-center-center'
           });

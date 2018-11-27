@@ -30,6 +30,7 @@ import { UserCartComponent } from './user-cart/user-cart.component';
 import { SingleCartItemComponent } from './single-cart-item/single-cart-item.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { SingleListComponent } from './single-list/single-list.component';
+import { UserComponent } from './user/user.component';
 
 const appRoutes: Routes = [
 { path: 'verify/:id', redirectTo: 'http://localhost:9000/verify/asdf'}
@@ -51,7 +52,8 @@ const appRoutes: Routes = [
     UserCartComponent,
     SingleCartItemComponent,
     UserListComponent,
-    SingleListComponent
+    SingleListComponent,
+    UserComponent
 
   ],
   imports: [
@@ -82,7 +84,8 @@ const appRoutes: Routes = [
     AboutComponent,
     UserCartComponent,
     UserListComponent,
-    SingleListComponent
+    SingleListComponent,
+    UserComponent
   ]
 })
 export class AppModule { }

@@ -1,6 +1,7 @@
 export class User {
-  id: string;
+  _id: string;
   username: string;
   password: string;
   isManager: boolean;
+  isDisabled: boolean;
 }

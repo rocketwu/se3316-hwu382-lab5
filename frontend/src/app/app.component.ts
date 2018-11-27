@@ -6,6 +6,7 @@ import {CommentService} from './comment.service';
 import {AddCommentComponent} from './add-comment/add-comment.component';
 import {UserCartComponent} from './user-cart/user-cart.component';
 import {UserListComponent} from './user-list/user-list.component';
+import {UserComponent} from './user/user.component';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,9 @@ export class AppComponent {
   showSignUp = false;
   showLogin = false;
 
-  constructor(private notify: ToastrService, public dialog: MatDialog) {}
+  constructor(private notify: ToastrService, public dialog: MatDialog) {
+    localStorage.setItem('manageMode','false');
+  }
 
   clickSignUp() {
     this.showSignUp = true;
@@ -43,7 +46,7 @@ export class AppComponent {
   }
 
   clickAbout() {
-    this.dialog.open(AboutComponent,{
+    this.dialog.open(AboutComponent, {
       width: '600px'
     });
   }
@@ -67,6 +70,26 @@ export class AppComponent {
 
   get isLoggedIn() {
     return (localStorage.length > 0);
+  }
+  get isManager(): boolean {
+    return (localStorage.getItem('isManager') == 'true');
+  }
+  get manageMode(): boolean {
+    return (localStorage.getItem('manageMode') == 'true');
+  }
+
+  clickManage() {
+    if (this.manageMode){
+      localStorage.setItem('manageMode','false');
+    } else {
+      localStorage.setItem('manageMode','true');
+    }
+  }
+  clickUser() {
+    const d = this.dialog.open(UserComponent,  {
+      width: '600px',
+      data: {mode: 'show'}
+    });
   }
 }
 

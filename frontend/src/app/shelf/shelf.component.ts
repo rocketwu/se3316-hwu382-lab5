@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ItemService} from '../item.service';
 import {Item} from '../models/item';
-import {isMaster} from 'cluster';
 
 @Component({
   selector: 'app-shelf',

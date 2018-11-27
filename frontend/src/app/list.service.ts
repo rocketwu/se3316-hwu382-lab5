@@ -12,10 +12,17 @@ export class ListService {
   constructor(private http: HttpClient) { }
 
   public lists: List[];
+  public sharedList: List[];
 
   update() {
     this.getOwnList().subscribe(data => {
       this.lists = data;
+    });
+  }
+
+  updateShared() {
+    this.getPublic().subscribe((data) => {
+      this.sharedList = data;
     });
   }
 
@@ -109,7 +116,7 @@ export class ListService {
       .set('Content-Type', 'application/json')
       .set('Authorization', 'bearer ' + localStorage.getItem('token'));
     return this.http.get<List[]>(
-      Env.serverURL + '/public',
+      Env.serverURL + 'list/public',
       {headers: headers}
     );
   }
@@ -119,7 +126,7 @@ export class ListService {
       .set('Content-Type', 'application/json')
       .set('Authorization', 'bearer ' + localStorage.getItem('token'));
     return this.http.get<ListItem[]>(
-      Env.serverURL + 'public/' + id,
+      Env.serverURL + 'list/public/' + id,
       {headers: headers}
     );
   }
