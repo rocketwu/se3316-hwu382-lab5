@@ -74,6 +74,29 @@ router.route('/own/:list_id')   //用于get自己表的详细内容
         });
     })
 
+    .delete(function (req, res) {
+        //request to get items in a list
+        //use: GET http://myurl/list/own/<list_id>
+        //login user only
+        loginModule.verifyAuthority(req, res, false, function (user) {
+            List.findOne({userID: user._id, _id: req.params.list_id}, function (err, list) {
+                //check whether the user owned the list
+                if (err){
+                    res.json({status: '0', message: err});
+                    return;
+                }
+                if(list){
+                    //user owns the list
+                    List.findByIdAndDelete(list._id, function () {
+                        res.json({status: '1'});
+                    })
+                }else{
+                    res.json({status: '0', message: 'Cannot find such list'});
+                }
+            })
+        });
+    })
+
     .post(function (req, res) {
         //use to add an item into list
         //use: POST http://myurl/list/own/<list_id>

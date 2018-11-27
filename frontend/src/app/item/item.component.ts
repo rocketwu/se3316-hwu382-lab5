@@ -5,6 +5,7 @@ import {CommentService} from '../comment.service';
 import {AddCommentComponent} from '../add-comment/add-comment.component';
 import {CartService} from '../cart.service';
 import {ToastrService} from 'ngx-toastr';
+import {UserListComponent} from '../user-list/user-list.component';
 
 export interface DialogData {
   item: Item;
@@ -62,6 +63,10 @@ export class SingleItemDialogComponent {
 
   addList(){
     // TODO: add list function
+    const d = this.dialog.open(UserListComponent,  {
+      width: '600px',
+      data: {mode: 'add', item: this.data.item}
+    });
   }
 
   addCart(){

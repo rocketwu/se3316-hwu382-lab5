@@ -13,6 +13,12 @@ export class ListService {
 
   public lists: List[];
 
+  update() {
+    this.getOwnList().subscribe(data => {
+      this.lists = data;
+    });
+  }
+
   getOwnList(): Observable<List[]> {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
@@ -40,6 +46,16 @@ export class ListService {
       .set('Content-Type', 'application/json')
       .set('Authorization', 'bearer ' + localStorage.getItem('token'));
     return this.http.get<ListItem[]>(
+      Env.serverURL + 'list/own/' + id,
+      {headers: headers}
+    );
+  }
+
+  deleteList(id: string): Observable<any> {
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', 'bearer ' + localStorage.getItem('token'));
+    return this.http.delete<any>(
       Env.serverURL + 'list/own/' + id,
       {headers: headers}
     );

@@ -7,6 +7,7 @@
     <button mat-raised-button style="background-color: #c8e4fe" (click)="clickSignUp()" *ngIf="!isLoggedIn">Sign Up</button>
     <button mat-raised-button style="background-color: #feffe0" (click)="clickLogin()" *ngIf="!isLoggedIn">Login</button>
     <button mat-raised-button style="background-color: #feffe0" (click)="clickCart()" *ngIf="isLoggedIn">My Cart</button>
+    <button mat-raised-button style="background-color: #feffe0" (click)="clickList()" *ngIf="isLoggedIn">My List</button>
     <button mat-raised-button style="background-color: #feffe0" (click)="clickLogout()" *ngIf="isLoggedIn">Log Out</button>
   </mat-toolbar-row>
 </mat-toolbar>
