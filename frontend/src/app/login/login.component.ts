@@ -38,7 +38,6 @@ export class LoginComponent implements OnInit {
     localStorage.clear();
 
     this.loginService.postLogin(user).subscribe(res => {
-      console.log(res);
       if (res.status == 1) {
         // login success
         localStorage.setItem('token', res.token);
