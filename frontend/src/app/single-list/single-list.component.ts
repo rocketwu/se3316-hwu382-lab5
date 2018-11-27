@@ -34,8 +34,13 @@ export class SingleListComponent implements OnInit {
       this.name.setValue(this.data.list.name);
       this.description.setValue(this.data.list.description);
       this.isPublic = this.data.list.isPublic;
-      this.getItems();
+      if (this.data.isOwn){
+        this.getItems();
+      } else {
+        this.getPublicItems();
+      }
     }
+
   }
 
   onSubmit(){
@@ -109,4 +114,9 @@ export class SingleListComponent implements OnInit {
     });
   }
 
+  private getPublicItems() {
+    this.lServer.getPublicDetail(this.data.list._id).subscribe((data) => {
+      this.items = data;
+    });
+  }
 }

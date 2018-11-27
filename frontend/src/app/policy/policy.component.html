@@ -1,0 +1,9 @@
+<div *ngIf="!manageMode">
+  {{policy}}
+</div>
+
+<div *ngIf="manageMode">
+  <textarea [(ngModel)]="policy"></textarea>
+  <br>
+  <button mat-raised-button (click)="updatePolicy()">Update Policy</button>
+</div>

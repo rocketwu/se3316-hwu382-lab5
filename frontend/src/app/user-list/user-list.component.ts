@@ -60,7 +60,7 @@ export class UserListComponent implements OnInit {
   show(list: List){
     const d = this.dialog.open(SingleListComponent, {
       width: '600px',
-      data: {list: list, isNew: false, isOwn: !this.showOther, username: this.getUserName(list)}
+      data: {list: list, isNew: false, isOwn: !this.showOther, username: list.username}
     });
   }
 
@@ -89,19 +89,33 @@ export class UserListComponent implements OnInit {
 
   switchBetweenMineAndOthers() {
     this.showOther = !this.showOther;
+    this.appendUsername();
   }
 
-  getUserName(list: List): string{
-    // TODO: 使用user service接收user name
-    this.uService.update();
-    let username = list.userID;
-    for (let user of this.uService.users) {
-      if (user._id == list.userID){
-        username = user.username;
-        break;
+  // getUserName(list: List): string{
+  //   // TODO: 使用user service接收user name
+  //   this.uService.update();
+  //   let username = list.userID;
+  //   for (let user of this.uService.users) {
+  //     if (user._id == list.userID){
+  //       username = user.username;
+  //       break;
+  //     }
+  //   }
+  //   return username;
+  // }
+
+  appendUsername(){
+    let users = this.uService.users;
+    for (let list of this.lists){
+      list.username = list.userID;
+      for (let user of users){
+        if (user._id == list.userID){
+          list.username = user.username;
+          break;
+        }
       }
     }
-    return username;
   }
 
 

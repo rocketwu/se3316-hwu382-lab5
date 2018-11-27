@@ -1,4 +1,4 @@
-
+var fs = require('fs');
 var ENV = require('./backend_modules/environment');
 var express    = require('express');        // call express
 var app        = express();                 // define our app using express
@@ -16,6 +16,7 @@ var signupRouter = require('./routes/signup'),
     cartRouter = require('./routes/cart'),
     listRouter = require('./routes/list'),
     userRouter = require('./routes/user'),
+    policyRouter = require('./routes/policy'),
     testRouter = require('./routes/test');
 
 //settings
@@ -44,6 +45,7 @@ app.use('/comment',commentRouter);
 app.use('/cart', cartRouter);
 app.use('/list', listRouter);
 app.use('/user', userRouter);
+app.use('/policy', policyRouter);
 app.use('/test',testRouter);
 
 

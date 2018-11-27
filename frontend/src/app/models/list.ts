@@ -4,6 +4,7 @@ export class List {
   name: string;
   description: string;
   isPublic: boolean;
+  username: string;
 }
 
 export class ListItem {

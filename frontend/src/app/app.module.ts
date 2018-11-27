@@ -32,6 +32,7 @@ import { UserListComponent } from './user-list/user-list.component';
 import { SingleListComponent } from './single-list/single-list.component';
 import { UserComponent } from './user/user.component';
 import { AddItemComponent } from './add-item/add-item.component';
+import { PolicyComponent } from './policy/policy.component';
 
 const appRoutes: Routes = [
 { path: 'verify/:id', redirectTo: 'http://localhost:9000/verify/asdf'}
@@ -55,7 +56,8 @@ const appRoutes: Routes = [
     UserListComponent,
     SingleListComponent,
     UserComponent,
-    AddItemComponent
+    AddItemComponent,
+    PolicyComponent
 
   ],
   imports: [
@@ -89,7 +91,8 @@ const appRoutes: Routes = [
     UserListComponent,
     SingleListComponent,
     UserComponent,
-    AddItemComponent
+    AddItemComponent,
+    PolicyComponent
   ]
 })
 export class AppModule { }
