@@ -6,6 +6,8 @@ import {AddCommentComponent} from '../add-comment/add-comment.component';
 import {CartService} from '../cart.service';
 import {ToastrService} from 'ngx-toastr';
 import {UserListComponent} from '../user-list/user-list.component';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ItemService} from '../item.service';
 
 export interface DialogData {
   item: Item;
@@ -45,16 +47,34 @@ export class ItemComponent implements OnInit {
 })
 export class SingleItemDialogComponent {
 
+  name = new FormControl('', [Validators.required]);
+  price = new FormControl('', [Validators.required]);
+  sold = new FormControl();
+  available = new FormControl();
+  detail = new FormControl();
+  addItemForm = new FormGroup({
+    name: this.name,
+    price: this.price,
+    sold: this.sold,
+    available: this.available,
+    detail: this.detail
+  });
+
   constructor(
     public dialogRef: MatDialogRef<SingleItemDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private commentService: CommentService,
+    private itemService: ItemService,
     public dialog: MatDialog,
     private cartService: CartService,
     private notify: ToastrService) {}
 
     ngOnInit(){
-
+      this.name.setValue(this.data.item.name);
+      this.price.setValue(this.data.item.price);
+      this.available.setValue(this.data.item.available);
+      this.detail.setValue(this.data.item.detail);
+      this.sold.setValue(this.data.item.sold);
     }
 
   onNoClick(): void {
@@ -62,7 +82,6 @@ export class SingleItemDialogComponent {
   }
 
   addList(){
-    // TODO: add list function
     const d = this.dialog.open(UserListComponent,  {
       width: '600px',
       data: {mode: 'add', item: this.data.item}
@@ -112,7 +131,67 @@ export class SingleItemDialogComponent {
       width: '600px',
       data: {item: this.data.item}
     });
-
   }
+
+  get manageMode(): boolean {
+    return (localStorage.getItem('manageMode') == 'true');
+  }
+
+  deleteItem() {
+    this.itemService.deleteItem(this.data.item._id).subscribe((res) => {
+      if (res.status == 1){
+        this.notify.success('',
+          'Deleted',
+          {timeOut: 1000 * 2,
+            positionClass: 'toast-center-center'
+          });
+        this.itemService.update();
+        this.cartService.update();
+        this.cancel();
+      } else {
+        this.notify.warning(res.message, 'Fail',
+          {timeOut: 1000 * 2,
+            positionClass: 'toast-center-center'
+          });
+        if (res.message === 'Login status expired') {
+          localStorage.clear();
+        }
+      }
+    });
+  }
+
+  onSubmit() {
+    this.data.item.name = this.name.value;
+    this.data.item.price = this.price.value;
+    this.data.item.available = this.available.value;
+    this.data.item.sold = this.sold.value;
+    this.data.item.detail = this.detail.value;
+    this.itemService.putItem(this.data.item).subscribe((res) => {
+      if (res.status == 1){
+        this.notify.success('',
+          'Updated',
+          {timeOut: 1000 * 2,
+            positionClass: 'toast-center-center'
+          });
+        this.itemService.update();
+        this.cartService.update();
+        this.cancel();
+      } else {
+        this.notify.warning(res.message, 'Fail',
+          {timeOut: 1000 * 2,
+            positionClass: 'toast-center-center'
+          });
+        if (res.message === 'Login status expired') {
+          localStorage.clear();
+        }
+      }
+    });
+  }
+
+  cancel() {
+    this.onNoClick();
+  }
+
+
 
 }

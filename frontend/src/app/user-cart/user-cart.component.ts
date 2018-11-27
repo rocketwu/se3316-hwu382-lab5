@@ -25,14 +25,6 @@ export class UserCartComponent implements OnInit {
 
   getCartItems() {
     this.cartService.getCart().subscribe(data => {
-      if (!data[0]._id) {
-        this.notify.warning('', 'Fail',
-          {timeOut: 1000 * 2,
-            positionClass: 'toast-center-center'
-          });
-        localStorage.clear();
-        return;
-      }
       this.cartService.cartItems = data;
     });
   }
