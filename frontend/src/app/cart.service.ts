@@ -9,27 +9,51 @@ import {Env} from './env';
 })
 export class CartService {
 
-  private headers = new HttpHeaders()
-    .set('Content-Type', 'application/json')
-    .set('Authorization', 'bearer ' + localStorage.getItem('token'));
+  constructor(private http: HttpClient) {
+    this.cartItems=[];
+  }
 
-  constructor(private http: HttpClient) { }
+  public cartItems: Cart[];
 
   getCart(): Observable<Cart[]> {
-    return this.http.get<Cart[]>(Env.serverURL + 'cart/', {headers: this.headers});
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', 'bearer ' + localStorage.getItem('token'));
+    return this.http.get<Cart[]>(Env.serverURL + 'cart/', {headers: headers});
+  }
+
+  update() {
+    this.getCart().subscribe(data => {
+      this.cartItems = data;
+    });
   }
 
   clearCart(): Observable<any> {
-    return this.http.delete<any>(Env.serverURL + 'cart/', {headers: this.headers});
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', 'bearer ' + localStorage.getItem('token'));
+    return this.http.delete<any>(Env.serverURL + 'cart/', {headers: headers});
   }
 
   deleteCartItem(id: string): Observable<any> {
-    return this.http.delete<any>(Env.serverURL + 'cart/item/' + id, {headers: this.headers});
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', 'bearer ' + localStorage.getItem('token'));
+    return this.http.delete<any>(Env.serverURL + 'cart/item/' + id, {headers: headers});
   }
 
   modifyCartItem(id: string, quantity: number): Observable<any> {
-    return this.http.put<any>(Env.serverURL + 'cart/item/' + id, {quantity: quantity}, {headers: this.headers});
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', 'bearer ' + localStorage.getItem('token'));
+    return this.http.put<any>(Env.serverURL + 'cart/item/' + id, {quantity: quantity}, {headers: headers});
   }
 
+  buy(): Observable<any> {
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', 'bearer ' + localStorage.getItem('token'));
+    return this.http.delete<any>(Env.serverURL + 'cart/buy', {headers: headers});
+  }
 
 }

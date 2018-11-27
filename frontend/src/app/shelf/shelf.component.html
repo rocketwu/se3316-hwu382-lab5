@@ -6,7 +6,7 @@
 </div>
 
 <div class="shelf" *ngIf="isMore">
-  <app-item *ngFor="let item of visibleItem" [item]="item" [isLogin]="getLogin()">
+  <app-item (e)="getItems()" *ngFor="let item of visibleItem" [item]="item" [isLogin]="getLogin()">
   </app-item>
 </div>
 

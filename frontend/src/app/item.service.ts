@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Item} from './models/item';
 import {Observable} from 'rxjs';
 import {Env} from './env';
+import {iterateListLike} from '@angular/core/src/change_detection/change_detection_util';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,8 @@ import {Env} from './env';
 export class ItemService {
 
   constructor(private http: HttpClient) { }
+
+  public items: Item[];
 
   postItem(item: Item): Observable<any> {
     const headers = new HttpHeaders()
@@ -38,6 +41,12 @@ export class ItemService {
 
   getItem(id): Observable<Item> {
     return this.http.get<Item>(Env.serverURL + 'item/' + id);
+  }
+
+  update() {
+    this.getItems().subscribe(data => {
+      this.items = data;
+    });
   }
 
 }

@@ -4,6 +4,7 @@ import {DialogData, SingleItemDialogComponent} from './item/item.component';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {CommentService} from './comment.service';
 import {AddCommentComponent} from './add-comment/add-comment.component';
+import {UserCartComponent} from './user-cart/user-cart.component';
 
 @Component({
   selector: 'app-root',
@@ -43,6 +44,16 @@ export class AppComponent {
   clickAbout() {
     this.dialog.open(AboutComponent,{
       width: '600px'
+    });
+  }
+
+  clickCart() {
+    const d = this.dialog.open(UserCartComponent, {
+      width: '600px'
+    });
+    d.afterClosed().subscribe((data) => {
+      // TODO: 不完美处理另外一个todo的问题（item 的数量）
+      window.location.reload();
     });
   }
 

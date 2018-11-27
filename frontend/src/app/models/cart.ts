@@ -3,6 +3,7 @@ export class Cart {
   userID: string;
   itemID: string;
   itemName: string;
-  itemPrice: string;
+  itemPrice: number;
   quantity: number;
+  availableQ: number;
 }

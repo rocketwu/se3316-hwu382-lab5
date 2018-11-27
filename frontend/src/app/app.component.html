@@ -6,6 +6,7 @@
     <button mat-raised-button style="background-color: #c8e4fe" (click)="clickAbout()">About</button>
     <button mat-raised-button style="background-color: #c8e4fe" (click)="clickSignUp()" *ngIf="!isLoggedIn">Sign Up</button>
     <button mat-raised-button style="background-color: #feffe0" (click)="clickLogin()" *ngIf="!isLoggedIn">Login</button>
+    <button mat-raised-button style="background-color: #feffe0" (click)="clickCart()" *ngIf="isLoggedIn">My Cart</button>
     <button mat-raised-button style="background-color: #feffe0" (click)="clickLogout()" *ngIf="isLoggedIn">Log Out</button>
   </mat-toolbar-row>
 </mat-toolbar>
@@ -16,5 +17,3 @@
 <app-test></app-test>
 <app-signup *ngIf="showSignUp" (canceled)="cancelSignup()"></app-signup>
 <app-login *ngIf="showLogin" (canceled)="cancelLogin()"></app-login>
-
-

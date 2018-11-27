@@ -15,7 +15,7 @@ import {
   MatDialogModule,
   MatDividerModule, MatExpansionModule,
   MatInputModule,
-  MatListModule, MatSliderModule,
+  MatListModule, MatSliderModule, MatTableModule,
   MatToolbarModule
 } from '@angular/material';
 import { LoginComponent } from './login/login.component';
@@ -26,6 +26,9 @@ import {ItemComponent, SingleItemDialogComponent} from './item/item.component';
 import { CommentComponent } from './comment/comment.component';
 import { AddCommentComponent } from './add-comment/add-comment.component';
 import 'hammerjs';
+import { UserCartComponent } from './user-cart/user-cart.component';
+import { SingleCartItemComponent } from './single-cart-item/single-cart-item.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 const appRoutes: Routes = [
 { path: 'verify/:id', redirectTo: 'http://localhost:9000/verify/asdf'}
@@ -43,7 +46,10 @@ const appRoutes: Routes = [
     SingleItemDialogComponent,
     CommentComponent,
     AddCommentComponent,
-    AboutComponent
+    AboutComponent,
+    UserCartComponent,
+    SingleCartItemComponent,
+    UserListComponent
 
   ],
   imports: [
@@ -62,6 +68,7 @@ const appRoutes: Routes = [
     MatDividerModule,
     MatSliderModule,
     MatExpansionModule,
+    MatTableModule,
     ToastrModule.forRoot()
   ],
   providers: [],
@@ -69,7 +76,8 @@ const appRoutes: Routes = [
   entryComponents: [
     SingleItemDialogComponent,
     AddCommentComponent,
-    AboutComponent
+    AboutComponent,
+    UserCartComponent
   ]
 })
 export class AppModule { }
