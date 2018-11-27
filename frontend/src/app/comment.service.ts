@@ -26,6 +26,6 @@ export class CommentService {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Authorization', 'bearer ' + localStorage.getItem('token'));
-    return this.http.put<any>(Env.serverURL + 'hide/' + comment._id, comment, {headers: headers});
+    return this.http.put<any>(Env.serverURL + 'comment/hide/' + comment._id, comment, {headers: headers});
   }
 }

@@ -45,4 +45,12 @@ export class CommentComponent implements OnInit {
     return r;
   }
 
+  get manageMode(): boolean {
+    return (localStorage.getItem('manageMode') == 'true');
+  }
+
+  changeVisibility(comment: Comment){
+    this.commentService.hideComment(comment).subscribe();
+  }
+
 }

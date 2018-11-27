@@ -17,33 +17,35 @@
 
 <div *ngIf="manageMode">
   <h3>Modify Item</h3>
-  <form [formGroup]="addItemForm" (ngSubmit)="onSubmit()">
-    <mat-form-field style="width: 80%;"  [floatLabel]="auto">
-      <input matInput type="text" formControlName="name" placeholder="Item Name">
-      <mat-error *ngIf="name.invalid">Name is required!</mat-error>
-    </mat-form-field>
+  <div mat-dialog-content>
+    <form [formGroup]="addItemForm" (ngSubmit)="onSubmit()">
+      <mat-form-field style="width: 80%;"  [floatLabel]="auto">
+        <input matInput type="text" formControlName="name" placeholder="Item Name">
+        <mat-error *ngIf="name.invalid">Name is required!</mat-error>
+      </mat-form-field>
 
-    <mat-form-field style="width: 80%;"  [floatLabel]="auto">
-      <input matInput type="number" formControlName="price" placeholder="Item price">
-      <mat-error *ngIf="price.invalid">Price is required!</mat-error>
-    </mat-form-field>
+      <mat-form-field style="width: 80%;"  [floatLabel]="auto">
+        <input matInput type="number" formControlName="price" placeholder="Item price">
+        <mat-error *ngIf="price.invalid">Price is required!</mat-error>
+      </mat-form-field>
 
-    <mat-form-field style="width: 80%;"  [floatLabel]="auto">
-      <input matInput type="number" formControlName="sold" placeholder="Item sold">
-    </mat-form-field>
+      <mat-form-field style="width: 80%;"  [floatLabel]="auto">
+        <input matInput type="number" formControlName="sold" placeholder="Item sold">
+      </mat-form-field>
 
-    <mat-form-field style="width: 80%;"  [floatLabel]="auto">
-      <input matInput type="number" formControlName="available" placeholder="Item available">
-    </mat-form-field>
+      <mat-form-field style="width: 80%;"  [floatLabel]="auto">
+        <input matInput type="number" formControlName="available" placeholder="Item available">
+      </mat-form-field>
 
-    <mat-form-field style="width: 80%;"  [floatLabel]="auto">
-      <textarea matInput type="text" formControlName="detail" placeholder="Item detail"></textarea>
-    </mat-form-field>
+      <mat-form-field style="width: 80%;"  [floatLabel]="auto">
+        <textarea matInput type="text" formControlName="detail" placeholder="Item detail"></textarea>
+      </mat-form-field>
 
-    <br>
-    <button mat-raised-button color="primary" type="submit" [disabled]="!addItemForm.valid">Update</button>
-    <button mat-raised-button color="warn" type="button" (click)="deleteItem()">Delete</button>
-    <button mat-raised-button type="button" (click)="cancel()">Cancel</button>
-
-  </form>
+      <br>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!addItemForm.valid">Update</button>
+      <button mat-raised-button color="warn" type="button" (click)="deleteItem()">Delete</button>
+      <button mat-raised-button type="button" (click)="cancel()">Cancel</button>
+    </form>
+    <app-comment [item]="data.item" [isLogin]="data.isLogin"></app-comment>
+  </div>
 </div>
