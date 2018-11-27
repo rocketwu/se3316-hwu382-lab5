@@ -193,14 +193,13 @@ router.route('/own/:list_id/:item_id')  //用于修改表内特定物品
     });
 
 
-router.route('/public/:user_id')    //查看他人的公开表
+router.route('/public')    //查看他人的公开表
     .get(function (req, res) {
         //use to get other user's public list
-        //GET http://myurl/list/public/<user_id>
+        //GET http://myurl/list/public
         //login requested
-        let userid = req.params.user_id;
         loginModule.verifyAuthority(req, res, false, function (user) {
-            List.find({userID: userid, isPublic: true}, function (err, lists) {
+            List.find({isPublic: true}, function (err, lists) {
                 if (err){
                     res.json({status: '0', message: err});
                 }else{
@@ -210,12 +209,11 @@ router.route('/public/:user_id')    //查看他人的公开表
         });
     });
 
-router.route('/public/:user_id/:list_id') //查看他人表的内容
+router.route('/public/:list_id') //查看他人表的内容
     .get(function (req, res) {
         //use to get the content of a public user list
         //GET http://myurl/list/public/<user_id>/<list_id>
         //login requried
-        let userid = req.params.user_id;
         let listid = req.params.list_id;
         loginModule.verifyAuthority(req, res, false, function (user) {
             //check if the list is public

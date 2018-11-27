@@ -3,7 +3,6 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Item} from './models/item';
 import {Observable} from 'rxjs';
 import {Env} from './env';
-import {iterateListLike} from '@angular/core/src/change_detection/change_detection_util';
 
 @Injectable({
   providedIn: 'root'

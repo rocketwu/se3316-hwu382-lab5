@@ -53,16 +53,16 @@ export class UserCartComponent implements OnInit {
   clear() {
     this.cartService.clearCart().subscribe(data => {
       this.cartService.update();
-    })
+    });
   }
 
   get cartItems() {
     return this.cartService.cartItems;
   }
 
-  get totalPrice() :number {
+  get totalPrice(): number {
     let price = 0;
-    for (let i = 0; i < this.cartItems.length; i++){
+    for (let i = 0; i < this.cartItems.length; i++) {
       price = price + this.cartItems[i].quantity * this.cartItems[i].itemPrice;
     }
     return price;
