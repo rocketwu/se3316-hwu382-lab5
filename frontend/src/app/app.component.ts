@@ -7,6 +7,7 @@ import {AddCommentComponent} from './add-comment/add-comment.component';
 import {UserCartComponent} from './user-cart/user-cart.component';
 import {UserListComponent} from './user-list/user-list.component';
 import {UserComponent} from './user/user.component';
+import {AddItemComponent} from './add-item/add-item.component';
 
 @Component({
   selector: 'app-root',
@@ -93,7 +94,9 @@ export class AppComponent {
   }
 
   clickAddItem() {
-    
+    const d = this.dialog.open(AddItemComponent,  {
+      width: '600px'
+    });
   }
 }
 
