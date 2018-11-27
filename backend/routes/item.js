@@ -8,7 +8,7 @@ var Cart = require('../models/cartModel');
 var ListItem = require('../models/listItemModel');
 
 var parsetoItem = function (request){
-    var item = new Item(request.body.item);
+    var item = new Item(request.body);
     return (!item.name) ? parsetoItem2(request) : item;
 }
 

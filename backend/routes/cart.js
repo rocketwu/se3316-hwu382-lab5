@@ -152,6 +152,7 @@ router.route('/item/:item_id')
                                 cartItem.itemName = item.name;
                                 cartItem.itemPrice = item.price;
                                 cartItem.quantity = quantity;
+                                cartItem.availableQ = item.available;
                                 cartItem.save(function (err) {
                                     if (err){
                                         res.json({status: '0', message: err});

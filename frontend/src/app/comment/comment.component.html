@@ -1,0 +1,23 @@
+<mat-list *ngIf="isLogin">
+  <h3 mat-subheader>Comments</h3>
+  <mat-list-item *ngFor="let comment of visibleComment">
+    <mat-divider></mat-divider>
+    <h4 mat-line>{{comment.author}}</h4>
+
+      Rate: <div style="text-align: left" *ngFor="let r of getRank(comment)"><span *ngIf="r" style="color: chartreuse">✔</span><span *ngIf="!r" style="color: brown">✘</span></div>
+
+    <p mat-line>{{comment.content}}</p>
+  </mat-list-item>
+</mat-list>
+
+<mat-list *ngIf="!isLogin">
+  <h3 mat-subheader>Comments</h3>
+  <mat-list-item *ngFor="let comment of limitedComment">
+    <mat-divider></mat-divider>
+    <h4 mat-line>{{comment.author}}</h4>
+    <p mat-line>{{comment.rank}}</p>
+    Rate: <div style="text-align: left" *ngFor="let r of getRank(comment)"><span *ngIf="r" style="color: chartreuse">✔</span><span *ngIf="!r" style="color: brown">✘</span></div>
+    <p mat-line>{{comment.content}}</p>
+  </mat-list-item>
+
+</mat-list>

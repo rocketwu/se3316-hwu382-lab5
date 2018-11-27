@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {ToastrService} from 'ngx-toastr';
+import {DialogData, SingleItemDialogComponent} from './item/item.component';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import {CommentService} from './comment.service';
+import {AddCommentComponent} from './add-comment/add-comment.component';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +15,7 @@ export class AppComponent {
   showSignUp = false;
   showLogin = false;
 
-  constructor(private notify: ToastrService) {}
+  constructor(private notify: ToastrService, public dialog: MatDialog) {}
 
   clickSignUp() {
     this.showSignUp = true;
@@ -36,7 +40,29 @@ export class AppComponent {
       });
   }
 
+  clickAbout() {
+    this.dialog.open(AboutComponent,{
+      width: '600px'
+    });
+  }
+
   get isLoggedIn() {
     return (localStorage.length > 0);
   }
+}
+
+@Component({
+  selector: 'app-about',
+  templateUrl: 'about.html'
+})
+export class AboutComponent {
+
+  constructor(
+    public dialogRef: MatDialogRef<AboutComponent>) {}
+
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
 }

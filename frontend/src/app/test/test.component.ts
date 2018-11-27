@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {FormControl, FormGroup, Validator, Validators} from '@angular/forms';
-import {ToastrService} from 'ngx-toastr';
+import {ItemService} from '../item.service';
+import {Item} from '../models/item';
+import {CartService} from '../cart.service';
 
 @Component({
   selector: 'app-test',
@@ -9,19 +10,19 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class TestComponent implements OnInit {
 
-  signUpForm = new FormGroup({
-    username: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required]),
-  });
-  constructor(private  notify: ToastrService) { }
+  constructor(private  testService: ItemService, private cartService: CartService) { }
   ngOnInit(): void {
 
 
   }
 
-  onSubmit(){
-    this.notify.success('hello world', 'gg', {timeOut: 100 * 1000,
-      positionClass: 'toast-center-center'});
+  onSubmit() {
+    this.cartService.modifyCartItem('5bfb9b331b9c672669e85858', 2).subscribe(data => {
+      console.log(data);
+    });
+    this.cartService.getCart().subscribe(data => {
+      console.log(data);
+    });
   }
 
 }

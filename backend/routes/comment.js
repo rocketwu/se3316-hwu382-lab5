@@ -6,7 +6,7 @@ var Comment = require('../models/commentModel');
 var Item = require('../models/itemModel');
 
 var parsetoComment = function (request){
-    var comment = new Comment(request.body.comment);
+    var comment = new Comment(request.body);
     return (!comment.itemID) ? parsetoComment2(request) : comment;
 }
 

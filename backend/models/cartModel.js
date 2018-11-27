@@ -5,7 +5,8 @@ var cartSchema = new Schema({
     itemID: String,
     itemName: String,
     itemPrice: Number,
-    quantity: Number
+    quantity: Number,
+    availableQ: Number
 });
 
 module.exports = mongoose.model('Cart',cartSchema);

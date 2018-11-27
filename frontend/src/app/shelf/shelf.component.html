@@ -1,0 +1,12 @@
+<div class="shelf" *ngIf="!isMore">
+  <app-item *ngFor="let item of limitedItem" [item]="item" [isLogin]="getLogin()">
+  </app-item>
+  <br>
+  <button style="width: 100%;" mat-flat-button type="button" (click)="showMore()">more...</button>
+</div>
+
+<div class="shelf" *ngIf="isMore">
+  <app-item *ngFor="let item of visibleItem" [item]="item" [isLogin]="getLogin()">
+  </app-item>
+</div>
+

@@ -1,0 +1,11 @@
+.Item {
+  width: 300px;
+  margin: 10px;
+  display: flex;
+}
+
+.mat-button {
+  margin-left: 10px;
+  height: 30%;
+  margin: auto;
+}
