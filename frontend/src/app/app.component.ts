@@ -18,7 +18,7 @@ export class AppComponent {
   showLogin = false;
 
   constructor(private notify: ToastrService, public dialog: MatDialog) {
-    localStorage.setItem('manageMode','false');
+
   }
 
   clickSignUp() {
@@ -68,7 +68,7 @@ export class AppComponent {
   }
 
   get isLoggedIn() {
-    return (localStorage.length > 0);
+    return (localStorage.getItem('token'));
   }
   get isManager(): boolean {
     return (localStorage.getItem('isManager') == 'true');

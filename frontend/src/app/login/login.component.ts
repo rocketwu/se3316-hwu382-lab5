@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('username', res.username);
         localStorage.setItem('userID', res.userID);
         localStorage.setItem('isManager', res.isManager);
+        localStorage.setItem('manageMode','false');
         this.notify.success('Welcome back ' + localStorage.getItem('username'),
           'Login Success',
           {timeOut: 1000 * 2,

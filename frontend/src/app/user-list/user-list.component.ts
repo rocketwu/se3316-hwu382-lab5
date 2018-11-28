@@ -92,19 +92,6 @@ export class UserListComponent implements OnInit {
     this.appendUsername();
   }
 
-  // getUserName(list: List): string{
-  //   // TODO: 使用user service接收user name
-  //   this.uService.update();
-  //   let username = list.userID;
-  //   for (let user of this.uService.users) {
-  //     if (user._id == list.userID){
-  //       username = user.username;
-  //       break;
-  //     }
-  //   }
-  //   return username;
-  // }
-
   appendUsername(){
     let users = this.uService.users;
     for (let list of this.lists){

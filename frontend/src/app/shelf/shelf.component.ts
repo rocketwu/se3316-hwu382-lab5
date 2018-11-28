@@ -47,7 +47,7 @@ export class ShelfComponent implements OnInit {
   }
 
   getLogin(){
-    return localStorage.length > 0;
+    return (localStorage.getItem('token'));
   }
 
 }
