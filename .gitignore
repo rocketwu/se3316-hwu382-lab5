@@ -62,3 +62,7 @@ typings/
 
 #ide
 .idea/
+
+#db
+backend/data/
+backend/rundb
