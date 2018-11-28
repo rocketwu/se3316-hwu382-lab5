@@ -48,6 +48,7 @@ export class AddItemComponent implements OnInit {
               positionClass: 'toast-center-center'
             });
           this.cancel();
+          this.itemService.update();
         } else {
           this.notify.warning(res.message, 'Add Item Fail',
             {timeOut: 1000 * 2,

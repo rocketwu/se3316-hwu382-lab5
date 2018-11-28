@@ -9,9 +9,15 @@ import {Env} from './env';
 })
 export class ItemService {
 
-  constructor(private http: HttpClient) { }
+
+
+  constructor(private http: HttpClient) {
+
+  }
 
   public items: Item[];
+  public visibleItem: Item[];
+  public limitedItem: Item[];
 
   postItem(item: Item): Observable<any> {
     const headers = new HttpHeaders()
@@ -44,7 +50,16 @@ export class ItemService {
 
   update() {
     this.getItems().subscribe(data => {
+      this.visibleItem=[];
+      this.limitedItem=[];
       this.items = data;
+      for (let i = 0; i < this.items.length; i++) {
+        if (this.items[i].available > 0) {this.visibleItem.push(this.items[i]); }
+      }
+      this.visibleItem.sort(function (a: Item, b: Item) {
+        return (b.sold-a.sold);
+      });
+      this.limitedItem = this.visibleItem.slice(0, 10);
     });
   }
 

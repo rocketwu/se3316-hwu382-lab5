@@ -39,6 +39,9 @@ export class ItemComponent implements OnInit {
       this.e.emit();
     });
   }
+  get manageMode(): boolean {
+    return (localStorage.getItem('manageMode') == 'true');
+  }
 }
 
 @Component({
@@ -113,6 +116,7 @@ export class SingleItemDialogComponent {
           {timeOut: 1000 * 2,
             positionClass: 'toast-center-center'
           });
+        this.data.item.available = this.data.item.available-1;
         this.cartService.update();
       } else {
         this.notify.warning(res.message, 'Fail',

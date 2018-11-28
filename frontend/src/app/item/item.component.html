@@ -1,4 +1,4 @@
-<mat-card class="Item" *ngIf="item.available>0" (click)="openDialog()">
+<mat-card class="Item" *ngIf="item.available>0 || manageMode" (click)="openDialog()">
   <mat-card-header>
     <mat-card-title>
       {{item.name}}

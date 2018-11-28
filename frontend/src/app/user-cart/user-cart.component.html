@@ -29,7 +29,7 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-<h4>Total Price: </h4> ${{totalPrice}}
+<h4>Total Price: </h4> ${{totalPrice | number:'.2'}}
 <div>
   <button [disabled]="!(cartItems.length>0)" style="margin: 5px" mat-raised-button color="primary" (click)="buy()">Buy</button>
   <button [disabled]="!(cartItems.length>0)" style="margin: 5px" mat-button (click)="clear()">Clear</button>

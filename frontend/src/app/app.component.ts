@@ -55,8 +55,7 @@ export class AppComponent {
       width: '600px'
     });
     d.afterClosed().subscribe((data) => {
-      // TODO: 不完美处理另外一个todo的问题（item 的数量）
-      window.location.reload();
+
     });
   }
 
