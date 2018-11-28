@@ -1,6 +1,6 @@
 <h3>{{title}}</h3>
 <form [formGroup]="addCommentForm" (ngSubmit)="onSubmit(rateslider.value)">
-  <mat-form-field style="width: 80%;"  [floatLabel]="auto">
+  <mat-form-field style="width: 80%;"  >
     <textarea matInput type="text" formControlName="content" placeholder="Content"></textarea>
     <mat-error *ngIf="content.invalid">Comment content is required!</mat-error>
   </mat-form-field>
