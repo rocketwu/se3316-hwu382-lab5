@@ -26,7 +26,14 @@
 
 <app-shelf></app-shelf>
 
-<a (click)="clickPolicy()">Policy ... </a>
+<mat-toolbar style="background-color: #6b76ff" >
+  <mat-toolbar-row>
+    <a (click)="clickPolicy()">Policy ... </a>
+    <span class="spacer"></span>
+    <a (click)="clickDcma()">Request ... </a>
+  </mat-toolbar-row>
+</mat-toolbar>
+
 <app-signup *ngIf="showSignUp" (canceled)="cancelSignup()"></app-signup>
 <app-login *ngIf="showLogin" (canceled)="cancelLogin()"></app-login>
 

@@ -6,6 +6,7 @@ import {UserListComponent} from './user-list/user-list.component';
 import {UserComponent} from './user/user.component';
 import {AddItemComponent} from './add-item/add-item.component';
 import {PolicyComponent} from './policy/policy.component';
+import {DcmaComponent} from './dcma/dcma.component';
 
 @Component({
   selector: 'app-root',
@@ -66,6 +67,12 @@ export class AppComponent {
     });
   }
 
+  clickDcma() {
+    const d = this.dialog.open(DcmaComponent, {
+      width: '600px'
+    });
+  }
+
   get isLoggedIn() {
     return (localStorage.getItem('token'));
   }
@@ -77,10 +84,10 @@ export class AppComponent {
   }
 
   clickManage() {
-    if (this.manageMode){
-      localStorage.setItem('manageMode','false');
+    if (this.manageMode) {
+      localStorage.setItem('manageMode', 'false');
     } else {
-      localStorage.setItem('manageMode','true');
+      localStorage.setItem('manageMode', 'true');
     }
   }
   clickUser() {

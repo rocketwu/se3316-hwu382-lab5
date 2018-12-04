@@ -17,6 +17,7 @@ var signupRouter = require('./routes/signup'),
     listRouter = require('./routes/list'),
     userRouter = require('./routes/user'),
     policyRouter = require('./routes/policy'),
+    dcmaRouter = require('./routes/dcma'),
     testRouter = require('./routes/test');
 
 //settings
@@ -46,6 +47,7 @@ app.use('/cart', cartRouter);
 app.use('/list', listRouter);
 app.use('/user', userRouter);
 app.use('/policy', policyRouter);
+app.use('/dcma',dcmaRouter);
 app.use('/test',testRouter);
 
 

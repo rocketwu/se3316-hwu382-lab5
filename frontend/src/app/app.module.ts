@@ -15,7 +15,7 @@ import {
   MatDialogModule,
   MatDividerModule, MatExpansionModule,
   MatInputModule,
-  MatListModule, MatSelectModule, MatSliderModule, MatSlideToggleModule, MatTableModule,
+  MatListModule, MatSelectModule, MatSliderModule, MatSlideToggleModule, MatStepperModule, MatTableModule,
   MatToolbarModule
 } from '@angular/material';
 import { LoginComponent } from './login/login.component';
@@ -33,6 +33,7 @@ import { SingleListComponent } from './single-list/single-list.component';
 import { UserComponent } from './user/user.component';
 import { AddItemComponent } from './add-item/add-item.component';
 import { PolicyComponent } from './policy/policy.component';
+import { DcmaComponent } from './dcma/dcma.component';
 
 const appRoutes: Routes = [
 { path: 'verify/:id', redirectTo: 'http://localhost:9000/verify/asdf'}
@@ -57,7 +58,8 @@ const appRoutes: Routes = [
     SingleListComponent,
     UserComponent,
     AddItemComponent,
-    PolicyComponent
+    PolicyComponent,
+    DcmaComponent
 
   ],
   imports: [
@@ -79,6 +81,7 @@ const appRoutes: Routes = [
     MatTableModule,
     MatSelectModule,
     MatSlideToggleModule,
+    MatStepperModule,
     ToastrModule.forRoot()
   ],
   providers: [],
@@ -92,7 +95,8 @@ const appRoutes: Routes = [
     SingleListComponent,
     UserComponent,
     AddItemComponent,
-    PolicyComponent
+    PolicyComponent,
+    DcmaComponent
   ]
 })
 export class AppModule { }
