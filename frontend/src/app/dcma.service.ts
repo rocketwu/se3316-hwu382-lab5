@@ -11,6 +11,14 @@ export class DcmaService {
 
   constructor(private  http: HttpClient) { }
 
+  requests: Dcma[];
+
+  update(){
+    this.getDcmas().subscribe(res=>{
+      this.requests = res;
+    });
+  }
+
   postDcma(dcma: Dcma): Observable<any> {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json');

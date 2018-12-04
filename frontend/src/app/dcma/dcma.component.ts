@@ -56,4 +56,23 @@ export class DcmaComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  get manageMode(): boolean {
+    return (localStorage.getItem('manageMode') == 'true');
+  }
+
+  loadRequest(){
+    this.ds.update();
+  }
+
+  get requests(): Dcma[] {
+    return this.ds.requests;
+  }
+
+  changeDone(request:Dcma){
+    this.ds.putDcma(request).subscribe(res=>{
+
+    });
+  }
+
+
 }

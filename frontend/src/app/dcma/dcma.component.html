@@ -1,11 +1,11 @@
-<div *ngIf="!confirm">
+<div *ngIf="!confirm&&(!manageMode)">
   <h1>Intro to Request a DCMA Request</h1>
   <p>Click Okay to fill the request form</p>
   <p>State the object you want to takedown and the reason</p>
   <p>leave your contact infomation, our manager will contact you in a few days</p>
   <button (click)="confirm=!confirm">Okay</button>
 </div>
-<div *ngIf="confirm">
+<div *ngIf="confirm&&(!manageMode)">
   <h3>Start a Request</h3>
   <form [formGroup]="requestForm" (ngSubmit)="onSubmit()">
 
@@ -32,4 +32,21 @@
     <button mat-raised-button type="button" (click)="cancel()">Cancel</button>
 
   </form>
+</div>
+<div *ngIf="(manageMode)">
+  <h3>Handle DCMA Request</h3>
+  <mat-divider></mat-divider>
+  <div *ngFor="let request of requests">
+    <h4>Issuer: {{request.issuer}}</h4>
+    <span>Content: </span> {{request.content}}<br>
+    <span>Contact: </span> {{request.contact}}<br>
+    <span>Done: </span>
+    <mat-slide-toggle
+    [(ngModel)]="request.done"
+    (change)="changeDone(request)"
+    color="warn"
+  ></mat-slide-toggle>
+    <mat-divider></mat-divider>
+  </div>
+  <button (click)="loadRequest()">load request</button>
 </div>
