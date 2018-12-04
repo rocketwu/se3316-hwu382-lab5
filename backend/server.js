@@ -24,8 +24,12 @@ var signupRouter = require('./routes/signup'),
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(function (request, response, next) {
+    let allowOri = "http://localhost:4200";
+    if (request.headers.origin == "https://rocketwu.github.io"|| request.headers.origin == "https://se3316-hwu382-lab5-hwu382.c9users.io"){
+        allowOri=request.headers.origin;
+    }
     response.setHeader('Access-Control-Allow-Origin',
-        '*');
+        allowOri);
     response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With,Content-Type, Accept, Authorization");
     response.header('Access-Control-Allow-Methods', 'POST, PATCH,GET, PUT, DELETE, OPTIONS');
     next();
